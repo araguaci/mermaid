@@ -47,9 +47,12 @@ describe('when using mermaidAPI and ', function () {
       mermaidAPI.setConfig({ securityLevel: 'strict', logLevel: 1 });
       expect(mermaidAPI.getConfig().logLevel).toBe(1);
       expect(mermaidAPI.getConfig().securityLevel).toBe('strict');
-      mermaidAPI.globalReset();
+      mermaidAPI.reset();
       expect(mermaidAPI.getConfig().logLevel).toBe(0);
       expect(mermaidAPI.getConfig().securityLevel).toBe('loose');
+      mermaidAPI.globalReset();
+      expect(mermaidAPI.getConfig().logLevel).toBe(5);
+      expect(mermaidAPI.getConfig().securityLevel).toBe('strict');
     });
 
     it('should prevent changes to site defaults (sneaky)', function () {
@@ -122,25 +125,24 @@ describe('when using mermaidAPI and ', function () {
   });
   describe('test mermaidApi.parse() for checking validity of input ', function () {
     mermaid.parseError = undefined; // ensure it parseError undefined
-    it('it should throw for an invalid definition (with no mermaid.parseError() defined)', function () {
+    it('should throw for an invalid definition (with no mermaid.parseError() defined)', function () {
       expect(mermaid.parseError).toEqual(undefined);
       expect(() => mermaidAPI.parse('this is not a mermaid diagram definition')).toThrow();
     });
-    it('it should not throw for a valid definition', function () {
+    it('should not throw for a valid definition', function () {
       expect(() => mermaidAPI.parse('graph TD;A--x|text including URL space|B;')).not.toThrow();
     });
     it('it should return false for invalid definition WITH a parseError() callback defined', function () {
-      var parseErrorWasCalled = false;
+      let parseErrorWasCalled = false;
       // also test setParseErrorHandler() call working to set mermaid.parseError
-      mermaid.setParseErrorHandler(function (error, hash) {
-        // got here.
-        parseErrorWasCalled = true;
-      });
-      expect(mermaid.parseError).not.toEqual(undefined);
-      expect(mermaidAPI.parse('this is not a mermaid diagram definition')).toEqual(false);
+      expect(
+        mermaidAPI.parse('this is not a mermaid diagram definition', () => {
+          parseErrorWasCalled = true;
+        })
+      ).toEqual(false);
       expect(parseErrorWasCalled).toEqual(true);
     });
-    it('it should return true for valid definition', function () {
+    it('should return true for valid definition', function () {
       expect(mermaidAPI.parse('graph TD;A--x|text including URL space|B;')).toEqual(true);
     });
   });

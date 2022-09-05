@@ -1,6 +1,7 @@
 import { line, curveBasis } from 'd3';
 import utils from '../../utils';
 import { log } from '../../logger';
+import { parseGenericTypes } from '../common/common';
 
 let edgeCount = 0;
 export const drawEdge = function (elem, path, relation, conf, diagObj) {
@@ -14,6 +15,8 @@ export const drawEdge = function (elem, path, relation, conf, diagObj) {
         return 'composition';
       case diagObj.db.DEPENDENCY:
         return 'dependency';
+      case diagObj.db.LOLLIPOP:
+        return 'lollipop';
     }
   };
 
@@ -344,10 +347,9 @@ const buildMethodDisplay = function (parsedText) {
 };
 
 const buildLegacyDisplay = function (text) {
-  // if for some reason we dont have any match, use old format to parse text
+  // if for some reason we don't have any match, use old format to parse text
   let displayText = '';
   let cssStyle = '';
-  let memberText = '';
   let returnType = '';
   let methodStart = text.indexOf('(');
   let methodEnd = text.indexOf(')');
@@ -367,26 +369,27 @@ const buildLegacyDisplay = function (text) {
       methodName = text.substring(1, methodStart).trim();
     }
 
-    let parameters = text.substring(methodStart + 1, methodEnd);
-    let classifier = text.substring(methodEnd + 1, 1);
+    const parameters = text.substring(methodStart + 1, methodEnd);
+    const classifier = text.substring(methodEnd + 1, methodEnd + 2);
     cssStyle = parseClassifier(classifier);
 
     displayText = visibility + methodName + '(' + parseGenericTypes(parameters.trim()) + ')';
 
-    if (methodEnd < memberText.length) {
+    if (methodEnd <= text.length) {
       returnType = text.substring(methodEnd + 2).trim();
       if (returnType !== '') {
         returnType = ' : ' + parseGenericTypes(returnType);
+        displayText += returnType;
       }
+    } else {
+      // finally - if all else fails, just send the text back as written (other than parsing for generic types)
+      displayText = parseGenericTypes(text);
     }
-  } else {
-    // finally - if all else fails, just send the text back as written (other than parsing for generic types)
-    displayText = parseGenericTypes(text);
   }
 
   return {
-    displayText: displayText,
-    cssStyle: cssStyle,
+    displayText,
+    cssStyle,
   };
 };
 
@@ -409,29 +412,6 @@ const addTspan = function (textEl, txt, isFirst, conf) {
 
   if (!isFirst) {
     tSpan.attr('dy', conf.textHeight);
-  }
-};
-
-/**
- * Makes generics in typescript syntax
- *
- * @example <caption>Array of array of strings in typescript syntax</caption>
- *   // returns "Array<Array<string>>"
- *   parseGenericTypes('Array~Array~string~~');
- *
- * @param {string} text The text to convert
- * @returns {string} The converted string
- */
-const parseGenericTypes = function (text) {
-  let cleanedText = text;
-
-  if (text.indexOf('~') != -1) {
-    cleanedText = cleanedText.replace('~', '<');
-    cleanedText = cleanedText.replace('~', '>');
-
-    return parseGenericTypes(cleanedText);
-  } else {
-    return cleanedText;
   }
 };
 

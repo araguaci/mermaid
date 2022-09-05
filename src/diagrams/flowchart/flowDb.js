@@ -409,6 +409,7 @@ const setupToolTips = function (element) {
         .text(el.attr('title'))
         .style('left', window.scrollX + rect.left + (rect.right - rect.left) / 2 + 'px')
         .style('top', window.scrollY + rect.top - 14 + document.body.scrollTop + 'px');
+      tooltipElem.html(tooltipElem.html().replace(/&lt;br\/&gt;/g, '<br/>'));
       el.classed('hover', true);
     })
     .on('mouseout', function () {
@@ -424,7 +425,7 @@ funs.push(setupToolTips);
  *
  * @param ver
  */
-export const clear = function (ver) {
+export const clear = function (ver = 'gen-1') {
   vertices = {};
   classes = {};
   edges = [];
@@ -435,7 +436,7 @@ export const clear = function (ver) {
   subCount = 0;
   tooltips = [];
   firstGraphFlag = true;
-  version = ver || 'gen-1';
+  version = ver;
   commonClear();
 };
 export const setGen = (ver) => {
@@ -476,7 +477,7 @@ export const addSubGraph = function (_id, list, _title) {
         return false;
       }
       if (type in prims) {
-        return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true); // eslint-disable-line
+        return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
       } else {
         return objs.indexOf(item) >= 0 ? false : objs.push(item);
       }

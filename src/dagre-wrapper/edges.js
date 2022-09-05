@@ -1,4 +1,4 @@
-import { log } from '../logger'; // eslint-disable-line
+import { log } from '../logger';
 import createLabel from './createLabel';
 import { line, curveBasis, select } from 'd3';
 import { getConfig } from '../config';
@@ -240,7 +240,7 @@ export const intersection = (node, outsidePoint, insidePoint) => {
   const Q = Math.abs(outsidePoint.y - insidePoint.y);
   const R = Math.abs(outsidePoint.x - insidePoint.x);
   // log.warn();
-  if (Math.abs(y - outsidePoint.y) * w > Math.abs(x - outsidePoint.x) * h) { // eslint-disable-line
+  if (Math.abs(y - outsidePoint.y) * w > Math.abs(x - outsidePoint.x) * h) {
     // Intersection is top or bottom of rect.
     // let q = insidePoint.y < outsidePoint.y ? outsidePoint.y - h - y : y - h - outsidePoint.y;
     let q = insidePoint.y < outsidePoint.y ? outsidePoint.y - h - y : y - h - outsidePoint.y;
@@ -510,6 +510,9 @@ export const insertEdge = function (elem, e, edge, clusterDb, diagramType, graph
     case 'dependency':
       svgPath.attr('marker-start', 'url(' + url + '#' + diagramType + '-dependencyStart' + ')');
       break;
+    case 'lollipop':
+      svgPath.attr('marker-start', 'url(' + url + '#' + diagramType + '-lollipopStart' + ')');
+      break;
     default:
   }
   switch (edge.arrowTypeEnd) {
@@ -536,6 +539,9 @@ export const insertEdge = function (elem, e, edge, clusterDb, diagramType, graph
       break;
     case 'dependency':
       svgPath.attr('marker-end', 'url(' + url + '#' + diagramType + '-dependencyEnd' + ')');
+      break;
+    case 'lollipop':
+      svgPath.attr('marker-end', 'url(' + url + '#' + diagramType + '-lollipopEnd' + ')');
       break;
     default:
   }
