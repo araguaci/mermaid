@@ -3,9 +3,10 @@
 node_modules/
 coverage/
 .idea/
+.pnpm-store/
 
-dist/*.js
-dist/*.map
+dist
+v8-compile-cache-0
 
 yarn-error.log
 .npmrc
@@ -13,14 +14,36 @@ token
 
 package-lock.json
 
-dist/classTest.html
+# ignore files in /.vscode/ except for launch.json and extensions.json
+/.vscode/**
+!/.vscode/launch.json
+!/.vscode/extensions.json
 
-dist/sequenceTest.html
-
-.vscode/
 cypress/platform/current.html
 cypress/platform/experimental.html
 local/
 
 _site
 Gemfile.lock
+/.vs
+
+cypress/screenshots/
+cypress/snapshots/
+
+# eslint --cache file
+.eslintcache
+.tsbuildinfo
+tsconfig.tsbuildinfo
+
+knsv*.html
+local*.html
+stats/
+
+**/user-avatars/*
+**/contributor-names.json
+.pnpm-store
+.nyc_output
+
+demos/dev/**
+!/demos/dev/example.html
+tsx-0/**

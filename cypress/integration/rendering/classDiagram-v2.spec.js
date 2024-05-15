@@ -1,10 +1,8 @@
-/* eslint-env jest */
-import { imgSnapshotTest } from '../../helpers/util';
+import { imgSnapshotTest } from '../../helpers/util.ts';
 describe('Class diagram V2', () => {
-
-    it('0: should render a simple class diagram', () => {
-      imgSnapshotTest(
-        `
+  it('0: should render a simple class diagram', () => {
+    imgSnapshotTest(
+      `
         classDiagram-v2
 
         classA -- classB : Inheritance
@@ -13,10 +11,9 @@ describe('Class diagram V2', () => {
         classB -- classD
 
         `,
-        {logLevel : 1, flowchart: { "htmlLabels": false },}
-      );
-      cy.get('svg');
-    });
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
 
   it('1: should render a simple class diagram', () => {
     imgSnapshotTest(
@@ -47,9 +44,8 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-      {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('2: should render a simple class diagrams with cardinality', () => {
@@ -76,10 +72,8 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-      {logLevel : 1, flowchart: { "htmlLabels": false },}
-
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('should render a simple class diagram with different visibilities', () => {
@@ -95,15 +89,14 @@ describe('Class diagram V2', () => {
       Class01 : +int publicGorilla
       Class01 : #int protectedMarmoset
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('should render multiple class diagrams', () => {
     imgSnapshotTest(
       [
-      `
+        `
     classDiagram-v2
       Class01 "1" <|--|> "*" AveryLongClass : Cool
       &lt;&lt;interface&gt;&gt; Class01
@@ -125,7 +118,7 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-      `
+        `
     classDiagram-v2
       Class01 "1" <|--|> "*" AveryLongClass : Cool
       &lt;&lt;interface&gt;&gt; Class01
@@ -148,9 +141,8 @@ describe('Class diagram V2', () => {
       }
       `,
       ],
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('4: should render a simple class diagram with comments', () => {
@@ -178,9 +170,8 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('5: should render a simple class diagram with abstract method', () => {
@@ -190,9 +181,8 @@ describe('Class diagram V2', () => {
       Class01 <|-- AveryLongClass : Cool
       Class01 : someMethod()*
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('6: should render a simple class diagram with static method', () => {
@@ -202,9 +192,8 @@ describe('Class diagram V2', () => {
       Class01 <|-- AveryLongClass : Cool
       Class01 : someMethod()$
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('7: should render a simple class diagram with Generic class', () => {
@@ -222,9 +211,8 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('8: should render a simple class diagram with Generic class and relations', () => {
@@ -243,9 +231,8 @@ describe('Class diagram V2', () => {
         test()
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('9: should render a simple class diagram with clickable link', () => {
@@ -265,9 +252,8 @@ describe('Class diagram V2', () => {
       }
       link Class01 "google.com" "A Tooltip"
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('10: should render a simple class diagram with clickable callback', () => {
@@ -287,9 +273,8 @@ describe('Class diagram V2', () => {
       }
       callback Class01 "functionCall" "A Tooltip"
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('11: should render a simple class diagram with return type on method', () => {
@@ -302,9 +287,8 @@ describe('Class diagram V2', () => {
         testArray() bool[]
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('12: should render a simple class diagram with generic types', () => {
@@ -318,9 +302,8 @@ describe('Class diagram V2', () => {
         testArray() bool[]
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('13: should render a simple class diagram with css classes applied', () => {
@@ -336,9 +319,8 @@ describe('Class diagram V2', () => {
 
       cssClass "Class10" exClass2
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('14: should render a simple class diagram with css classes applied directly', () => {
@@ -352,9 +334,8 @@ describe('Class diagram V2', () => {
         testArray() bool[]
       }
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
   });
 
   it('15: should render a simple class diagram with css classes applied two multiple classes', () => {
@@ -366,8 +347,238 @@ describe('Class diagram V2', () => {
 
       cssClass "Class10, class20" exClass2
       `,
-       {logLevel : 1, flowchart: { "htmlLabels": false },}
+      { logLevel: 1, flowchart: { htmlLabels: false } }
     );
-    cy.get('svg');
+  });
+
+  it('16a: should render a simple class diagram with static field', () => {
+    imgSnapshotTest(
+      `
+    classDiagram-v2
+      class Foo {
+        +String bar$
+      }
+            `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+
+  it('16b: should handle the direction statement with TB', () => {
+    imgSnapshotTest(
+      `
+      classDiagram
+        direction TB
+        class Student {
+          -idCard : IdCard
+        }
+        class IdCard{
+          -id : int
+          -name : string
+        }
+        class Bike{
+          -id : int
+          -name : string
+        }
+        Student "1" --o "1" IdCard : carries
+        Student "1" --o "1" Bike : rides
+
+      `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+  it('17a: should handle the direction statement with BT', () => {
+    imgSnapshotTest(
+      `
+      classDiagram
+        direction BT
+        class Student {
+          -idCard : IdCard
+        }
+        class IdCard{
+          -id : int
+          -name : string
+        }
+        class Bike{
+          -id : int
+          -name : string
+        }
+        Student "1" --o "1" IdCard : carries
+        Student "1" --o "1" Bike : rides
+
+      `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+  it('17b: should handle the direction statement with RL', () => {
+    imgSnapshotTest(
+      `
+      classDiagram
+        direction RL
+        class Student {
+          -idCard : IdCard
+        }
+        class IdCard{
+          -id : int
+          -name : string
+        }
+        class Bike{
+          -id : int
+          -name : string
+        }
+        Student "1" --o "1" IdCard : carries
+        Student "1" --o "1" Bike : rides
+
+      `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+
+  it('18a: should handle the direction statement with LR', () => {
+    imgSnapshotTest(
+      `
+      classDiagram
+        direction LR
+        class Student {
+          -idCard : IdCard
+        }
+        class IdCard{
+          -id : int
+          -name : string
+        }
+        class Bike{
+          -id : int
+          -name : string
+        }
+        Student "1" --o "1" IdCard : carries
+        Student "1" --o "1" Bike : rides
+
+      `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+
+  it('18b: should render a simple class diagram with notes', () => {
+    imgSnapshotTest(
+      `
+      classDiagram-v2
+        note "I love this diagram!\nDo you love it?"
+        class Class10 {
+            int id
+          size()
+        }
+        note for Class10 "Cool class\nI said it's very cool class!"
+
+        `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+
+  it('1433: should render a simple class with a title', () => {
+    imgSnapshotTest(
+      `---
+title: simple class diagram
+---
+classDiagram-v2
+class Class10
+`
+    );
+  });
+
+  it('should render a class with text label', () => {
+    imgSnapshotTest(
+      `classDiagram
+  class C1["Class 1 with text label"]
+  C1 -->  C2`
+    );
+  });
+
+  it('should render two classes with text labels', () => {
+    imgSnapshotTest(
+      `classDiagram
+  class C1["Class 1 with text label"]
+  class C2["Class 2 with chars @?"]
+  C1 -->  C2`
+    );
+  });
+  it('should render a class with a text label, members and annotation', () => {
+    imgSnapshotTest(
+      `classDiagram
+  class C1["Class 1 with text label"] {
+    &lt;&lt;interface&gt;&gt;
+    +member1
+  }
+  C1 -->  C2`
+    );
+  });
+  it('should render multiple classes with same text labels', () => {
+    imgSnapshotTest(
+      `classDiagram
+class C1["Class with text label"]
+class C2["Class with text label"]
+class C3["Class with text label"]
+C1 --> C2
+C3 ..> C2
+  `
+    );
+  });
+  it('should render classes with different text labels', () => {
+    imgSnapshotTest(
+      `classDiagram
+class C1["OneWord"]
+class C2["With, Comma"]
+class C3["With (Brackets)"]
+class C4["With [Brackets]"]
+class C5["With {Brackets}"]
+class C7["With 1 number"]
+class C8["With . period..."]
+class C9["With - dash"]
+class C10["With _ underscore"]
+class C11["With ' single quote"]
+class C12["With ~!@#$%^&*()_+=-/?"]
+class C13["With Città foreign language"]
+  `
+    );
+  });
+
+  it('should render classLabel if class has already been defined earlier', () => {
+    imgSnapshotTest(
+      `classDiagram
+  Animal <|-- Duck
+  class Duck["Duck with text label"]
+`
+    );
+  });
+  it('should add classes namespaces', function () {
+    imgSnapshotTest(
+      `
+      classDiagram
+      namespace Namespace1 {
+        class C1
+        class C2
+      }
+      C1 --> C2
+      class C3
+      class C4
+      `
+    );
+  });
+  it('should render a simple class diagram with no members', () => {
+    imgSnapshotTest(
+      `
+      classDiagram-v2
+        class Class10
+        `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
+  });
+  it('should render a simple class diagram with style definition', () => {
+    imgSnapshotTest(
+      `
+      classDiagram-v2
+        class Class10
+        style Class10 fill:#f9f,stroke:#333,stroke-width:4px
+        `,
+      { logLevel: 1, flowchart: { htmlLabels: false } }
+    );
   });
 });
